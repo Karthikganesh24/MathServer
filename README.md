@@ -33,98 +33,94 @@ Publish the website in the given URL.
 
 ## PROGRAM :
 ```
-math.html 
-
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Surface Area</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <style type="text/css">
-        body {
-            background-color: rgb(205, 92, 164);
-        }
-        .edge {
-            width: 100%;
-            padding-top: 250px;
-            text-align: center;
-        }
-        .box {
-            display: inline-block;
-            border: thick dashed rgb(246, 255, 192);
-            width: 500px;
-            min-height: 300px;
-            font-size: 20px;
-            background-color: rgb(179, 233, 245);
-            box-sizing: border-box;
-        }
-        .formelt {
-            color: black;
-            text-align: center;
-            margin-top: 7px;
-            margin-bottom: 6px;
-        }
-        h1 {
-            color: black;
-            text-align: center;
-            padding-top: 20px;
-        }
-    </style>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>Area of squareprism</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<style type="text/css">
+body 
+{
+background-color:red;
+}
+.edge {
+width: 1440px;
+margin-left: auto;
+margin-right: auto;
+padding-top: 250px;
+padding-left: 300px;
+}
+.box {
+display:block;
+border: Thick dashed lime;
+width: 500px;
+min-height: 300px;
+font-size: 20px;
+background-color:blue;
+}
+.formelt{
+color:orange;
+text-align: center;
+margin-top: 7px;
+margin-bottom: 6px;
+}
+h1
+{
+color:rgb(255, 0, 179);
+text-align: center;
+padding-top: 20px;
+}
+</style>
 </head>
 <body>
-    <center>
-    <div class="edge">
-        <div class="box">
-        
-            <h1>Surface Area of Right Cylinder</h1>
-            <h3>PRIYAADARSHINIK (212223240126)</h3>
-            <form method="POST">
-                {% csrf_token %}
-                <div class="formelt">
-                    Radius: <input type="text" name="radius" value="{{r}}">m<br/>
-                </div>
-                <div class="formelt">
-                    Height: <input type="text" name="height" value="{{h}}">m<br/>
-                </div>
-                <div class="formelt">
-                    <input type="submit" value="Calculate"><br/>
-                </div>
-                <div class="formelt">
-                    Area: <input type="text" name="area" value="{{area}}">m<sup>2</sup><br/>
-                </div>
-            </form>
-        </div>
-    </div>
-</center>
+<div class="edge">
+<div class="box">
+<h1>Area of a squareprism</h1>
+<form method="POST">
+{% csrf_token %}
+<div class="formelt">
+base : <input type="text" name="base" value="{{b}}"></input>(in m)<br/>
+</div>
+<div class="formelt">
+heigth : <input type="text" name="heigth" value="{{h}}"></input>(in m)<br/>
+</div>
+<div class="formelt">
+<input type="submit" value="Calculate"></input><br/>
+</div>
+<div class="formelt">
+Area : <input type="text" name="area" value="{{area}}"></input>m<sup>2</sup><br/>
+</div>
+</form>
+</div>
+</div>
 </body>
 </html>
-```
-```
+
 views.py
 
+
+
 from django.shortcuts import render
-def surfacearea(request):
-    context = {}
+def squareprism(request):
+    context={}
     context['area'] = "0"
-    context['r'] = "0"
-    context['h'] = "0"
+    context['l'] = "0"
+    context['b'] = "0"
     if request.method == 'POST':
         print("POST method is used")
-        print('request.POST:', request.POST)
-        r = request.POST.get('radius', '0') 
-        h = request.POST.get('height', '0') 
-        print('radius =', r)
-        print('height =', h)
-        area = 2 * 3.14 * int(r) * int(h) + 2*3.14*int(r)*int(r)
+        b = request.POST.get('base','0')
+        h = request.POST.get('heigth','0')
+        print('request=',request)
+        print('base=',b)
+        print('heigth=',h)
+        area = 2*(int(b) **2)  + 4* int(b) *int(h)
         context['area'] = area
-        context['r'] = r
+        context['b'] = b
         context['h'] = h
-        print('SurfaceArea =', area)
-    
-    return render(request, 'mathapp/math.html',context)
-```
-```
+        print('Area=',area)
+    return render(request,'mathapp/math.html',context)
+
 urls.py
 
 from django.contrib import admin
@@ -132,17 +128,16 @@ from django.urls import path
 from mathapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('surfacearea/',views.surfacearea,name="surfacearea"),
-    path('',views.surfacearea,name="surfacearea")
-]
+    path('areaofrectangle/',views.squareprism,name="areaofrectangle"),
+    path('',views.squareprism,name="areaofrectangleroot")
 ```
 
 ## SERVER SIDE PROCESSING:
-![areaoutput](https://github.com/user-attachments/assets/34342a6f-11b5-4297-bd89-5e059383f7f9)
+![Screenshot (21)](https://github.com/user-attachments/assets/ecbd51d6-6183-4ecf-b7e7-c67a32db9e88)
 
 
 ## HOMEPAGE:
-![Areaweb](https://github.com/user-attachments/assets/358cb24b-b113-4852-ab31-fedd2db393a9)
+![Screenshot (20)](https://github.com/user-attachments/assets/bcd58191-ee7d-4abd-bd01-f161d6043ade)
 
 
 ## RESULT:
